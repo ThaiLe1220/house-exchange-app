@@ -12,10 +12,10 @@ Request::~Request() {}
 
 // Constructor
 Request::Request(
-    int id = 0,
-    Member occupant = Member(),
-    House house = House(),
-    bool requestStatus = false)
+    int id,
+    Member occupant,
+    House house,
+    bool requestStatus)
 {
     this->id = id;
     this->occupant = occupant;

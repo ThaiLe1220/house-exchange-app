@@ -81,6 +81,47 @@ Member Data::getMemberByHouseId(int id)
         }
     }
 }
+bool Data::verifyMemberByUsername(string username)
+{
+    bool result = false;
+    for (int i = 0; i < this->memberList.size(); i++)
+    {
+        if (this->memberList[i].getUsername() == username)
+        {
+            result = true;
+        }
+    }
+    return result;
+}
+bool Data::verifyMemberByUsernameAndPassword(string username, string password)
+{
+    bool result = false;
+    for (int i = 0; i < this->memberList.size(); i++)
+    {
+        if (this->memberList[i].getUsername() == username && this->memberList[i].getPassword() == password)
+        {
+            result = true;
+        }
+    }
+    return result;
+}
+
+House Data::createHouseforOccupant(string location, string description, string startDate, string endDate, double minOccupantScore, double consumingPoint)
+{
+    // TODO: how to get unique id, create a method
+    int id = 0;
+    House h = House();
+    h.setId(id);
+    h.setLocation(location);
+    h.setDescription(description);
+    h.setStartDate(startDate);
+    h.setEndDate(endDate);
+    h.setMinOccupantScore(minOccupantScore);
+    h.setConsumingPoint(consumingPoint);
+    // TODO:check if house exits in list or nor, create a method
+    addHouse(h);
+    return h;
+}
 
 Request Data::createRequestToOccupy(Member occupant, int houseId)
 {
@@ -90,6 +131,15 @@ Request Data::createRequestToOccupy(Member occupant, int houseId)
     request.setHouse(getHouseById(houseId));
     request.setRequestStatus(false);
     return request;
+}
+
+void Data::deleteHouseById(int id) {
+    for (int i = 0; i < this->houseList.size(); i++){
+        if (this->houseList[i].getId() == id)
+        {
+            this->houseList.erase(this->houseList.begin() + i);
+        }
+    }
 }
 
 void Data::ViewAllMembers()

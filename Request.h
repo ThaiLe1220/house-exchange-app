@@ -7,13 +7,14 @@
 #define REQUEST_H
 
 
+
 class Request
 {
 private:
-    int id;
-    Member occupant;
-    House house;
-    bool requestStatus;
+    int id = 0;
+    Member occupant = Member();
+    House house = House();
+    bool requestStatus = false;
 
 public:
     Request();

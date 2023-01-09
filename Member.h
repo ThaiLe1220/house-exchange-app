@@ -12,14 +12,14 @@ using namespace std;
 class Member
 {
 private:
-    int id;
-    string fullname;
-    string username;
-    string password;
-    string phone;
-    int creditPoint;
-    double occupierRating;
-    House house;
+    int id = 0;
+    string fullname = "";
+    string username = "";
+    string password = "";
+    string phone = "";
+    double creditPoint = 500;
+    double occupierRating = 0;
+    House house = House();
 
 public:
     Member();
@@ -30,7 +30,7 @@ public:
         string username,
         string password,
         string phone,
-        int creditPoint,
+        double creditPoint,
         double occupierRating,
         House house);
 
@@ -39,7 +39,7 @@ public:
     string getUsername();
     string getPassword();
     string getPhone();
-    int getCreditPoint();
+    double getCreditPoint();
     double getOccupierRating();
     House getHouse();
 
@@ -51,6 +51,8 @@ public:
     void setCreditPoint(int creditPoint);
     void setOccupierRating(double occupierRating);
     void setHouse(House house);
+
+    void showAllMemberInfo();
 };
 
 #endif

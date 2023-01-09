@@ -1,11 +1,11 @@
-#include <iostream>
-#include <string>
+
 #include "Member.h"
 #include "House.h"
 #include "Request.h"
 #include "Data.h"
 
-
+#include <iostream>
+#include <string>
 #include <vector>
 #include <iomanip>
 
@@ -13,263 +13,192 @@
 
 using namespace std;
 
+void showWelcomeScreen()
+{
+    cout << "EEET2482/COSC2082 ASSIGNMENT\n";
+    cout << "VACATION HOUSE EXCHANGE APPLICATION\n";
+    cout << "Instructors: Mr. Linh Tran & Phong Ngo\n";
+    cout << "Group: Group 28\n";
+    cout << "s3824892, Chau Minh Kha\n";
+    cout << "s3902460, Nguyen Minh Phu\n";
+    cout << "s3752577, Thai Le\n";
+    cout << "s3927195, The Anh\n";
+    cout << "s3915202, Trinh Viet Quy\n";
+    cout << "Welcome to our House Exchange App!\n";
+}
+
+void showLoginOptions()
+{
+    cout << "\nUse app as 1. Guest, 2. Member, 3.Admin or 4.Exit\n";
+    cout << "Enter user option: ";
+}
+
+void showGuestOptions()
+{
+    cout << "\nThis is your menu:\n";
+    cout << setw(4) << ""
+         << "0. Go Back\n";
+    cout << setw(4) << ""
+         << "1. View All Houses Information (exclude reviews and occupy status)\n";
+    cout << setw(4) << ""
+         << "2. Register as Member\n";
+    cout << setw(4) << ""
+         << "3. Exit\n";
+    cout << "Enter guest option: ";
+}
+
+void showMemberOptions()
+{
+    cout << "\nThis is your menu:\n";
+    cout << setw(4) << ""
+         << "0. Go Back\n";
+    cout << setw(4) << ""
+         << "1. View Account Information\n";
+    cout << setw(4) << ""
+         << "2. List House for Occupy\n";
+    cout << setw(4) << ""
+         << "3. Unlist House for Occupy\n";
+    cout << setw(4) << ""
+         << "4. View Available Houses Information\n";
+    cout << setw(4) << ""
+         << "5. Request to Occupy House\n";
+    cout << setw(4) << ""
+         << "6. Rate Occupied House\n";
+    cout << setw(4) << ""
+         << "7. View All Occupy Request to your House\n";
+    cout << setw(4) << ""
+         << "8. Response to Occupy Request\n";
+    cout << setw(4) << ""
+         << "9. Rate Occupant of your House\n";
+    cout << setw(4) << ""
+         << "10. Register as Member\n";
+    cout << setw(4) << ""
+         << "11. Exit\n";
+    cout << "Enter member option: ";
+}
+
+void showAdminOptions()
+{
+    cout << "\nThis is your menu:\n";
+    cout << setw(4) << ""
+         << "0. Go Back\n";
+    cout << setw(4) << ""
+         << "1. View All Member Information\n";
+    cout << setw(4) << ""
+         << "2. View All House Information\n";
+    cout << setw(4) << ""
+         << "3. View All Request Information\n";
+    cout << setw(4) << ""
+         << "4. Exit\n";
+    cout << "Enter admin option: ";
+}
+
 /** Main Start - Our application run here **/
 
 /** How to compile and run **/
-/*  g++ Main.cpp House.cpp Member.cpp Request.cpp Admin.cpp Data.cpp -o t1
-/* ./t1
+/*  g++ Main.cpp House.cpp Member.cpp Request.cpp Admin.cpp Data.cpp -o Main
+/* ./Main
 */
 
 int main(int argc, char *argv[])
 {
-     // House h1 = House("house1", "hue", "description1", 1);
-     // House *h2 = new House("house2", "saigon", "description2", 2);
+    // Display welcome screen
+    showWelcomeScreen();
+    string loginOption;
 
-     // vector<House *> houseList;
-     // houseList.push_back(&h1);
-     // houseList.push_back(h2);
-     // // for (auto h : houseList){
-     // //     cout << "House: " << h->name << endl;
-     // // }
-     // vector<Request> requestList;
-     // Member m1 = Member("member1", "user1", "password1", "phone1", 1, 501, 11, h1, false, requestList);
-     // // m1.showMemberinfo();
+    while (1)
+    {
+        showLoginOptions();
+        cin >> loginOption;
+        if (
+            loginOption.compare("1") == 0 || loginOption.compare("2") == 0 || 
+            loginOption.compare("3") == 0 || loginOption.compare("4") == 0)
+        {
+            break;
+        }
+        else
+        {
+            cout << "Invalid option. Try again." << endl;
+        }
+    }
 
-     /** Kha Work comment out for now to prioritize testing method from each class and readFromFile and writeToFile Function  **/
+    // cout << loginOption << endl;
+    cout << endl;
 
-     // // Display welcome screen
-     // cout << "EEET2482/COSC2082 ASSIGNMENT"
-     //      << "\n";
-     // cout << "VACATION HOUSE EXCHANGE APPLICATION"
-     //      << "\n";
-     // cout << "Instructors: Mr. Linh Tran & Phong Ngo"
-     //      << "\n";
-     // cout << "Group: Group 28"
-     //      << "\n";
-     // cout << "s3824892, Chau Minh Kha"
-     //      << "\n";
-     // cout << "s3902460, Nguyen Minh Phu"
-     //      << "\n";
-     // cout << "s3752577, Thai Le"
-     //      << "\n";
-     // cout << "s3927195, The Anh"
-     //      << "\n";
-     // cout << "s3915202, Trinh Viet Quy"
-     //      << "\n";
-     // cout << "Welcome to our House Exchange App!";
-     // cout << "Use the app as 1. Guest   2. Member   3. Admin"
-     //      << "\n";
-     // cout << "Enter your choice: ";
-     // int user_type;
-     // cin >> user_type;
+    if (loginOption == "1")
+    {
 
-     // if (user_type == 1)
-     // {
-     //      // Guest user
-     //      while (true)
-     //      {
-     //           cout << "This is your menu:"
-     //                << "\n";
-     //           cout << "0. Exit"
-     //                << "\n";
-     //           cout << "1. View available houses"
-     //                << "\n";
-     //           cout << "Enter your choice: ";
-     //           int choice;
-     //           cin >> choice;
+        while (1)
+        {
+            showGuestOptions();
+            string guestOption;
+            cin >> guestOption;
+            if (
+                guestOption.compare("0") == 0 || guestOption.compare("1") == 0 || guestOption.compare("2") == 0 ||
+                guestOption.compare("3") == 0 || guestOption.compare("4") == 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Invalid option. Try again." << endl;
+            }
+        }
+        // TODO: Continue
+    }
+    else if (loginOption == "2")
+    {
+        while (1)
+        {
+            showMemberOptions();
+            string memberOption;
+            cin >> memberOption;
+            if (
+                memberOption.compare("0") == 0 || memberOption.compare("1") == 0 || memberOption.compare("2") == 0 ||
+                memberOption.compare("3") == 0 || memberOption.compare("4") == 0 || memberOption.compare("5") == 0 ||
+                memberOption.compare("6") == 0 || memberOption.compare("7") == 0 || memberOption.compare("8") == 0 ||
+                memberOption.compare("9") == 0 || memberOption.compare("10") == 0 || memberOption.compare("11") == 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Invalid option. Try again." << endl;
+            }
+        }
 
-     //           if (choice == 0)
-     //           {
-     //                break;
-     //           }
-     //           else if (choice == 1)
-     //           {
-     //                cout << "Enter start date (YYYY-MM-DD): ";
-     //                string start_date;
-     //                cin >> start_date;
-     //                cout << "Enter end date (YYYY-MM-DD): ";
-     //                string end_date;
-     //                cin >> end_date;
-     //                cout << "Enter city: ";
-     //                string city;
-     //                cin >> city;
-     //                system.ViewAvailableHouses(-1, start_date, end_date, city);
-     //           }
-     //           else
-     //           {
-     //                cout << "Error: Invalid menu choice."
-     //                     << "\n";
-     //           }
-     //      }
-     // }
-     // else if (user_type == 2)
-     // {
-     //      // Member user
-     //      cout << "Enter username: ";
-     //      string username;
-     //      cin >> username;
+        // TODO: Continue
+    }
+    else if (loginOption == "3")
+    {
+        showAdminOptions();
+        string adminOption;
+        cin >> adminOption;
+        while (1)
+        {
+            if (
+                adminOption.compare("0") == 0 || adminOption.compare("1") == 0 || adminOption.compare("2") == 0 ||
+                adminOption.compare("3") == 0 || adminOption.compare("4") == 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Invalid option. Try again." << endl;
+                showAdminOptions();
+                cin >> adminOption;
+            }
+        }
+       
 
-     //      int member_id = -1;
-     //      for (int i = 0; i < system.members().size(); i++)
-     //      {
-     //           if (system.members()[i].personal_info().username() == username)
-     //           {
-     //                member_id = i;
-     //                break;
-     //           }
-     //      }
+        // TODO: Continue
+    }
+    else if (loginOption == "4")
+    {
+        return -1;
+    }
 
-     //      if (member_id == -1)
-     //      {
-     //           cout << "Error: Invalid username."
-     //                << "\n";
-     //           return 0;
-     //      }
-
-     //      while (true)
-     //      {
-     //           cout << "This is your menu:"
-     //                << "\n";
-     //           cout << "0. Exit"
-     //                << "\n";
-     //           cout << "1. View Information"
-     //                << "\n";
-     //           cout << "2. List House"
-     //                << "\n";
-     //           cout << "3. View Available Houses"
-     //                << "\n";
-     //           cout << "4. Request to Occupy House"
-     //                << "\n";
-     //           cout << "5. View Occupy Requests"
-     //                << "\n";
-     //           cout << "6. Rate Occupied Houses"
-     //                << "\n";
-     //           cout << "Enter your choice: ";
-     //           int choice;
-     //           cin >> choice;
-
-     //           if (choice == 0)
-     //           {
-     //                break;
-     //           }
-     //           else if (choice == 1)
-     //           {
-     //                system.ViewMemberInfo(member_id);
-     //           }
-     //           else if (choice == 2)
-     //           {
-     //                cout << "Enter start date (YYYY-MM-DD): ";
-     //                string start_date;
-     //                cin >> start_date;
-     //                cout << "Enter end date (YYYY-MM-DD): ";
-     //                string end_date;
-     //                cin >> end_date;
-     //                cout << "Enter points per day: ";
-     //                int points_per_day;
-     //                cin >> points_per_day;
-     //                cout << "Enter minimum required occupier rating (optional, leave blank for no requirement): ";
-     //                string min_rating_str;
-     //                cin >> min_rating_str;
-     //                int min_rating = -1;
-     //                if (min_rating_str != "")
-     //                {
-     //                     min_rating = std::stoi(min_rating_str);
-     //                }
-     //                system.ListHouse(member_id, start_date, end_date, points_per_day, min_rating);
-     //           }
-     //           else if (choice == 3)
-     //           {
-     //                cout << "Enter start date (YYYY-MM-DD): ";
-     //                string start_date;
-     //                cin >> start_date;
-     //                cout << "Enter end date (YYYY-MM-DD): ";
-     //                string end_date;
-     //                cin >> end_date;
-     //                cout << "Enter city: ";
-     //                string city;
-     //                cin >> city;
-     //                system.ViewAvailableHouses(member_id, start_date, end_date, city);
-     //           }
-     //           else if (choice == 4)
-     //           {
-     //                cout << "Enter house ID: ";
-     //                int house_id;
-     //                cin >> house_id;
-     //                cout << "Enter start date (YYYY-MM-DD): ";
-     //                string start_date;
-     //                cin >> start_date;
-     //                cout << "Enter end date (YYYY-MM-DD): ";
-     //                string end_date;
-     //                cin >> end_date;
-     //                system.RequestToOccupyHouse(member_id, house_id, start_date, end_date);
-     //           }
-     //           else if (choice == 5)
-     //           {
-     //                system.ViewOccupyRequests(member_id);
-     //           }
-     //           else if (choice == 6)
-     //           {
-     //                cout << "Enter house ID: ";
-     //                int house_id;
-     //                cin >> house_id;
-     //                cout << "Enter score (1-10): ";
-     //                int score;
-     //                cin >> score;
-     //                cout << "Enter comment: ";
-     //                string comment;
-     //                cin >> comment;
-     //                system.LeaveReview(member_id, house_id, score, comment);
-     //           }
-     //           else
-     //           {
-     //                cout << "Error: Invalid menu choice."
-     //                     << "\n";
-     //           }
-     //      }
-     // }
-     // else if (user_type == 3)
-     // {
-     //      // Admin user
-     //      while (true)
-     //      {
-     //           cout << "This is your menu:"
-     //                << "\n";
-     //           cout << "0. Exit"
-     //                << "\n";
-     //           cout << "1. View All Members"
-     //                << "\n";
-     //           cout << "2. View All Houses"
-     //                << "\n";
-     //           cout << "Enter your choice: ";
-     //           int choice;
-     //           cin >> choice;
-
-     //           if (choice == 0)
-     //           {
-     //                break;
-     //           }
-     //           else if (choice == 1)
-     //           {
-     //                system.ViewAllMembers();
-     //           }
-     //           else if (choice == 2)
-     //           {
-     //                system.ViewAllHouses();
-     //           }
-     //           else
-     //           {
-     //                cout << "Error: Invalid menu choice."
-     //                     << "\n";
-     //           }
-     //      }
-     // }
-     // else
-     // {
-     //      cout << "Error: Invalid user type."
-     //           << "\n";
-     // }
-
-     return 0;
+    return 0;
 }
 
 /** Function to Read and Write from/to File -- Act as a database **/

@@ -40,8 +40,16 @@ public:
     Request getRequestById(int id);
     Member getMemberByUsername(string username);
     Member getMemberByHouseId(int id);
+    bool verifyMemberByUsername(string username); // New function to verify member by username
+    bool verifyMemberByUsernameAndPassword(string username, string password); // New function to verify member by username and password
+ 
 
+    House createHouseforOccupant(string location, string description, string startDate, string endDate, double minOccupantScore, double consumingPorint);
+    
     Request createRequestToOccupy(Member occupant, int houseId);
+
+
+    void deleteHouseById(int id);
 
     void ViewAllMembers();
     void ViewAllHouses();

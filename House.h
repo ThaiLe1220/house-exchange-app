@@ -9,14 +9,15 @@ using namespace std;
 class House
 {
 private:
-    int id;
-    string location;
-    string description;
-    double houseRating;
-    double minOccupantScore;
-    string startDate;
-    string endDate;
-    bool occupyStatus;
+    int id = 0;
+    string location = "";
+    string description = "";
+    double houseRating = 0;
+    double minOccupantScore = 0;
+    double consumingPoint = 0;
+    string startDate = "";
+    string endDate = "";
+    bool occupyStatus = false;
 
 public:
     House();
@@ -25,8 +26,9 @@ public:
         int id,
         string location,
         string description,
-        double houseRating,
+        double houseRatin,
         double minOccupantScore,
+        double consumingPoint,
         string startDate,
         string endDate,
         bool occupyStatus);
@@ -36,6 +38,7 @@ public:
     string getDescription();
     double getHouseRating();
     double getMinOccupantScore();
+    double getConsumingPoint();
     string getStartDate();
     string getEndDate();
     bool getOccupyStatus();
@@ -45,9 +48,12 @@ public:
     void setDescription(string description);
     void setHouseRating(double houseRating);
     void setMinOccupantScore(double minOccupantScore);
+    void setConsumingPoint(double consumingPoint);
     void setStartDate(string startDate);
     void setEndDate(string endDate);
     void setOccupyStatus(bool Occpystatus);
+
+    void showAllHouseInfo();
 };
 
 #endif
