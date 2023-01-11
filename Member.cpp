@@ -1,5 +1,6 @@
 #include "Member.h"
 
+#include <string>
 #include <iostream>
 #include <iomanip>
 
@@ -53,23 +54,33 @@ void Member::setOccupierRating(double occupierRating) { this->occupierRating = o
 void Member::setHouse(House house) { this->house = house; }
 
 // METHODS
-void Member::showAllMemberInfo()
+
+void Member::showAllMemberAttributes()
 {
-    cout << setw(12) << "member id"
+    cout << "   " << setw(10) << "member id"
          << " | " << setw(12) << "fullname"
          << " | " << setw(12) << "username"
          << " | " << setw(12) << "password"
-         << " | " << setw(12) << "phone"
+         << " | " << setw(10) << "phone"
          << " | " << setw(12) << "credit point"
-         << " | " << setw(12) << "occupier rating"
-         << " | " << setw(12) << "house id\n";
+         << " | " << setw(15) << "occupier rating"
+         << " | " << setw(8) << "house id\n";
+}
 
-    cout << setw(12) << this->id
+void Member::showAllMemberInfo()
+{
+    cout << "   " << setw(10) << this->id
          << " | " << setw(12) << this->fullname
          << " | " << setw(12) << this->username
          << " | " << setw(12) << this->password
-         << " | " << setw(12) << this->phone
+         << " | " << setw(10) << this->phone
          << " | " << setw(12) << this->creditPoint
-         << " | " << setw(12) << this->occupierRating
-         << " | " << setw(12) << this->house.getId() << "\n";
+         << " | " << setw(15) << this->occupierRating
+         << " | " << setw(8) << this->house.getId() << "\n";
+}
+
+void Member::showAll()
+{
+    showAllMemberAttributes();
+    showAllMemberInfo();
 }

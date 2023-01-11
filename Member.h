@@ -1,8 +1,7 @@
 #include "House.h"
 
-#include <iostream>
 #include <string>
-#include <vector>
+#include <iostream>
 
 #ifndef MEMBER_H
 #define MEMBER_H
@@ -52,7 +51,9 @@ public:
     void setOccupierRating(double occupierRating);
     void setHouse(House house);
 
+    void showAllMemberAttributes();
     void showAllMemberInfo();
+    void showAll();
 };
 
 #endif
