@@ -1,5 +1,6 @@
-#include <iostream>
 #include <string>
+#include <iostream>
+
 
 #ifndef HOUSE_H
 #define HOUSE_H
@@ -13,7 +14,7 @@ private:
     string location = "";
     string description = "";
     double houseRating = 0;
-    double minOccupantScore = 0;
+    double minOccupantScore = -10;
     double consumingPoint = 0;
     string startDate = "";
     string endDate = "";
@@ -53,7 +54,10 @@ public:
     void setEndDate(string endDate);
     void setOccupyStatus(bool Occpystatus);
 
+
+    void showAllHouseAttributes();
     void showAllHouseInfo();
+    void showAll();
 };
 
 #endif
