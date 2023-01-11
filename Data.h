@@ -3,8 +3,8 @@
 #include "Request.h"
 
 #include <iostream>
-#include <string>
 #include <vector>
+#include <string>
 
 #ifndef DATA_H
 #define DATA_H
@@ -31,32 +31,37 @@ public:
     void setHouseList(vector<House> houseList);
     void setMemberList(vector<Member> memberList);
 
-    void addHouse(House house); // dung khi ma member muon add house -> phat trien member co the xoa house, update house
-    void addMember(Member member); // dung khi ma new user muon register thanh member (nho constraint la 500 credit) -> de member sua thong tin ca nhan, them credit ... // xoa tai khoan member
-    void addRequest(Request request); // call chung vs createRequestToOccupy -- Thai lam roi
+    void addHouse(House house);
+    void addMember(Member member);
+    void addRequest(Request request);
+
+    void removeHouse(House house);
+    void removeMember(Member member);
+    void removeRequest(Request request);
+
+    void updateHouse(House house);
+    void updateMember(Member member);
+    void updateRequest(Request request);
 
     House getHouseById(int id);
     Member getMemberById(int id);
     Request getRequestById(int id);
     Member getMemberByUsername(string username);
     Member getMemberByHouseId(int id);
-    bool verifyMemberByUsername(string username); // New function to verify member by username
+    bool verifyMemberByUsername(string username);                             // New function to verify member by username
     bool verifyMemberByUsernameAndPassword(string username, string password); // New function to verify member by username and password
- 
 
     House createHouseforOccupant(string location, string description, string startDate, string endDate, double minOccupantScore, double consumingPorint);
-    
+
     Request createRequestToOccupy(Member occupant, int houseId);
+    vector<Request> deleteRequestFromRequestList(Request request, vector<Request> requests);
 
 
     void deleteHouseById(int id);
-
+    void deleteOtherRequestAfterAccept(Request request, vector<Request> requests);
     void ViewAllMembers();
     void ViewAllHouses();
-    void ViewAllHouseListings();
     void ViewAllRequests();
-
-    
 };
 
-#endif 
+#endif

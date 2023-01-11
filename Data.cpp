@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
+#include <iterator>
 
 using namespace std;
 
@@ -30,6 +32,90 @@ void Data::setMemberList(vector<Member> memberList) { this->memberList = memberL
 void Data::addHouse(House house) { this->houseList.push_back(house); }
 void Data::addMember(Member member) { this->memberList.push_back(member); }
 void Data::addRequest(Request request) { this->requestList.push_back(request); }
+
+void Data::removeHouse(House house)
+{
+    House h = House();
+    vector<House> houses = this->houseList;
+    vector<House>::iterator hou = houses.begin();
+    for (auto i = houses.begin(); i != houses.end(); i++)
+    {
+        h = *i;
+        if (h.getId() == house.getId())
+        {
+            houses.erase(i);
+            i--;
+        }
+    }
+    this->houseList = houses;
+}
+void Data::removeMember(Member member)
+{
+    Member m = Member();
+    vector<Member> members = this->memberList;
+    vector<Member>::iterator mem = members.begin();
+    for (auto i = members.begin(); i != members.end(); i++)
+    {
+        m = *i;
+        if (m.getId() == member.getId())
+        {
+            members.erase(i);
+            i--;
+        }
+    }
+    this->memberList = members;
+}
+
+void Data::removeRequest(Request request)
+{
+    Request r = Request();
+    vector<Request> requests = this->requestList;
+    vector<Request>::iterator req = requests.begin();
+    for (auto i = requests.begin(); i != requests.end(); i++)
+    {
+        r = *i;
+        if (r.getId() == request.getId())
+        {
+            requests.erase(i);
+            i--;
+        }
+    }
+    this->requestList = requests;
+}
+
+void Data::updateHouse(House house)
+{
+    for (auto &h : this->houseList)
+    {
+        if (h.getId() == house.getId())
+        {
+            removeHouse(h);
+            addHouse(house);
+        }
+    }
+}
+void Data::updateMember(Member member)
+{
+    for (auto &m : this->memberList)
+    {
+        if (m.getId() == member.getId())
+        {
+            removeMember(m);
+            addMember(member);
+        }
+    }
+}
+void Data::updateRequest(Request request)
+{
+    for (auto &r : this->requestList)
+    {
+        if (r.getId() == request.getId())
+        {
+            removeRequest(r);
+            addRequest(request);
+        }
+    }
+}
 
 House Data::getHouseById(int id)
 {
@@ -133,8 +219,10 @@ Request Data::createRequestToOccupy(Member occupant, int houseId)
     return request;
 }
 
-void Data::deleteHouseById(int id) {
-    for (int i = 0; i < this->houseList.size(); i++){
+void Data::deleteHouseById(int id)
+{
+    for (int i = 0; i < this->houseList.size(); i++)
+    {
         if (this->houseList[i].getId() == id)
         {
             this->houseList.erase(this->houseList.begin() + i);
@@ -142,52 +230,67 @@ void Data::deleteHouseById(int id) {
     }
 }
 
+void Data::deleteOtherRequestAfterAccept(Request request, vector<Request> requests)
+{
+    for (auto &r : this->requestList)
+    {
+        for (int i = 0; i < requests.size(); i++)
+        {
+            if (r.getId() == requests[i].getId())
+            {
+                removeRequest(r);
+            }
+        }
+    }
+    addRequest(request);
+}
+
+vector<Request> Data::deleteRequestFromRequestList(Request request, vector<Request> requests)
+{
+
+    Request r = Request();
+    vector<Request>::iterator req = requests.begin();
+    for (auto i = requests.begin(); i != requests.end(); i++)
+    {
+        r = *i;
+        if (r.getId() == request.getId())
+        {
+            requests.erase(i);
+            i--;
+        }
+    }
+    return requests;
+}
+
 void Data::ViewAllMembers()
 {
-    cout << "Member ID  | Fullname" << endl;
+    Member m = Member();
+    m.showAllMemberAttributes();
     for (int i = 0; i < this->memberList.size(); i++)
     {
         Member member = this->memberList[i];
-        cout << member.getId() << " | "
-             << member.getFullname() << endl;
+        member.showAllMemberInfo();
     }
 }
 
 void Data::ViewAllHouses()
 {
-    cout << "House ID  | Location" << endl;
+    House h = House();
+    h.showAllHouseAttributes();
     for (int i = 0; i < this->houseList.size(); i++)
     {
         House house = this->houseList[i];
-        cout << house.getId() << " | "
-             << house.getLocation() << endl;
-    }
-}
-
-void Data::ViewAllHouseListings()
-{
-    cout << "House ID | Owner ID | Start       | End         | Min Occupier Rating" << endl;
-    for (int i = 0; i < this->houseList.size(); i++)
-    {
-        House house = this->houseList[i];
-        cout << house.getId() << " | "
-             << getMemberByHouseId(house.getId()).getId() << " | "
-             << house.getStartDate() << " | "
-             << house.getEndDate() << " | "
-             << house.getMinOccupantScore() << endl;
+        house.showAllHouseInfo();
     }
 }
 
 void Data::ViewAllRequests()
 {
-    cout << "ID  | Occupant ID | Owner ID | House ID | Request Status" << endl;
+    Request req = Request();
+    req.showAllRequestAttributes();
     for (int i = 0; i < this->requestList.size(); i++)
     {
         Request request = this->requestList[i];
-        cout << request.getId() << " | "
-             << request.getOccupant().getId() << " | "
-             << getMemberByHouseId(request.getHouse().getId()).getId() << " | "
-             << request.getHouse().getId() << " | "
-             << request.getRequestStatus() << endl;
+        request.showAllRequestInfo();
     }
 }
