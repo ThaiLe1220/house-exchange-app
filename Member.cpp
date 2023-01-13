@@ -54,7 +54,6 @@ void Member::setOccupierRating(double occupierRating) { this->occupierRating = o
 void Member::setHouse(House house) { this->house = house; }
 
 // METHODS
-
 void Member::showAllMemberAttributes()
 {
     cout << "   " << setw(10) << "member id"

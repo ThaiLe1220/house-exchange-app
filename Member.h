@@ -12,10 +12,10 @@ class Member
 {
 private:
     int id = 0;
-    string fullname = "";
-    string username = "";
-    string password = "";
-    string phone = "";
+    string fullname = " ";
+    string username = " ";
+    string password = " ";
+    string phone = " ";
     double creditPoint = 500;
     double occupierRating = 0;
     House house = House();
