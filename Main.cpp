@@ -196,76 +196,40 @@ int countDayDiff(string start, string end)
 */
 
 int main(int argc, char *argv[])
-{
-    // Display welcome screen
-    bool appRunning = true;
-    bool guestRunning = true;
-    bool memberRunning = true;
-    bool memberRunningAfterLogin = true;
-    bool adminRunning = true;
-    int loginOption;
-    int guestOption;
-    int memberOption;
-    int adminOption;
-
-    // Sample data
+{ // Data class to store all data
     Data data = Data();
-    House h1 = House(1, "hanoi", "hanoi1", 5, -10, 20, "2023-2-1", "2023-2-21", false);
-    House h2 = House(2, "saigon", "saigon2", 1, 2, 30, "2023-2-13", "2023-3-23", false);
-    House h3 = House(3, "hue", "hue3", 0, -8, 10, "2023-1-14", "2023-2-24", false);
-    House h4 = House(4, "hanoi", "hanoi4", 0, -8, 35, "2023-2-5", "2023-2-25", false);
-    House h5 = House(5, "hanoi", "hanoi5", 5, -10, 20, "2023-2-1", "2023-2-21", false);
-    House h6 = House(6, "saigon", "saigon6", 1, 2, 30, "2023-2-13", "2023-3-23", false);
-    House h7 = House(7, "hue", "hue7", 0, -8, 10, "2023-1-14", "2023-2-24", false);
-    House h8 = House(8, "hanoi", "hanoi8", 5, 8, 15, "2023-2-5", "2023-2-25", false);
-    data.addHouse(h1);
-    data.addHouse(h2);
-    data.addHouse(h3);
-    data.addHouse(h4);
-    data.addHouse(h5);
-    data.addHouse(h6);
-    data.addHouse(h7);
-    data.addHouse(h8);
+    data.readDataFromFile("Application.dat");
 
-    Member m1 = Member(1, "thai", "thai", "thai", "0349087318", 999, 9, h1);
-    Member m2 = Member(2, "fullname2", "username2", "password2", "phone2", 200, 2, h2);
-    Member m3 = Member(3, "fullname3", "username3", "password3", "phone3", 300, 3, h3);
-    Member m4 = Member(4, "fullname4", "username4", "password4", "phone4", 400, 4, h4);
-    Member m5 = Member(5, "fullname5", "username5", "password5", "phone5", 500, 5, h5);
-    Member m6 = Member(6, "fullname6", "username6", "password6", "phone6", 600, 6, h6);
-    Member m7 = Member(7, "fullname7", "username7", "password7", "phone7", 700, 7, h7);
-    Member m8 = Member(8, "fullname8", "username8", "password8", "phone8", 800, 8, h8);
-    data.addMember(m1);
-    data.addMember(m2);
-    data.addMember(m3);
-    data.addMember(m4);
-    data.addMember(m5);
-    data.addMember(m6);
-    data.addMember(m7);
-    data.addMember(m8);
+    vector<Member> memberList;
+    vector<House> houseList;
+    vector<Request> requestList;
+    House emptyHouse = House();
+    Member emptyMember = Member();
 
-    Request r1 = Request(1, m8, h1, false, 0, 0, "", "");
-    Request r2 = Request(2, m7, h1, false, 0, 0, "", "");
-    Request r3 = Request(3, m6, h1, false, 0, 0, "", "");
-    Request r4 = Request(4, m4, h7, true, 5, 5, "best house", "worst occupant");
-    data.addRequest(r1);
-    data.addRequest(r2);
-    data.addRequest(r3);
-    data.addRequest(r4);
+    // register member
+    string fullnameR;
+    string usernameR;
+    string passwordR;
+    string phoneR;
 
     // login check then use this to track member while using the app
-    string username; // prompt user to get username
-    string password; // prompt user to get password
+    string username;
+    string password;
+
+    // the same go for admin
+    string usernameAdmin;
+    string passwordAdmin;
 
     // Member option 1, 2, 3 // View account + List and UnList House for Occupant
     Member Mem;
     House Hou;
+    bool hasHouse;
+    string hasHouseResponse;
     string locationH, descriptionH, startDateH, endDateH;
     double minOccupantScoreH, consumingPointH;
     int houseId;
 
     // Member option 4 - View available house
-    vector<House> houseList;
     vector<House> yourHouseList;
     string chosenSTime;
     string chosenETime;
@@ -279,7 +243,6 @@ int main(int argc, char *argv[])
     House chosenHouse;
 
     // Member option 6, 7 - View All Occupy Request to your House + Response to Occupy Request
-    vector<Request> requestList;
     vector<Request> yourRequestList;
     int chosenRequestId;
     string chosenResponse;
@@ -290,23 +253,41 @@ int main(int argc, char *argv[])
     string houseReviewM;
     string occupantReviewM;
 
+    // logic to change stage
+    bool appRunning = true;
+    bool guestRunning = true;
+    bool memberRunning = true;
+    bool memberRunningAfterLogin = true;
+    bool adminRunningAfterLogin = false;
+    bool adminRunning = true;
+    int loginOption;
+    int guestOption;
+    int memberOption;
+    int adminOption;
+
     system("cls");
     showWelcomeScreen();
     cout << "Press any key to continue..." << endl;
     getch();
     while (appRunning)
     {
+        // Initialize data
+        data.readDataFromFile("Application.dat");
+        memberList = data.getMemberList();
+        houseList = data.getHouseList();
+        requestList = data.getRequestList();
+
         system("cls");
         showLoginOptions();
         cin >> loginOption;
-        cout << "\nPress any key to continue..." << endl;
-        getch();
         switch (loginOption)
         {
         case 1: // Go as Guest
             guestRunning = true;
             while (guestRunning)
             {
+                cout << "Press any key to continue..." << endl;
+                getch();
                 system("cls");
                 showGuestOptions();
                 cin >> guestOption;
@@ -317,14 +298,41 @@ int main(int argc, char *argv[])
                     guestRunning = false;
                     break;
                 case 1: // View All Houses Information (exclude reviews and occupy status)
-                        // TODO:
                     cout << "[All Houses Information]\n";
-
+                    emptyHouse.showHouseAttributesforGuest();
+                    for (auto &h : houseList)
+                    {
+                        h.showHouseforGuest();
+                    }
                     break;
                 case 2: // Register as Member
-                        // TODO:
                     cout << "[Register Section] \n";
+                    cout << " Please enter your full name: ";
+                    cin.ignore();
+                    getline(cin, fullnameR);
+                    cout << "Please enter username: ";
+                    cin >> usernameR;
+                    cout << "Please enter password: ";
+                    cin >> passwordR;
+                    cout << "Please enter phone: ";
+                    cin >> phoneR;
 
+                    if (data.verifyMemberByUsername(usernameR) == true)
+                    {
+                        cout << "Please try again, there is already a member with the username: " << usernameR << endl;
+                        break;
+                    }
+                    else
+                    {
+                        emptyMember.setFullname(fullnameR);
+                        emptyMember.setUsername(usernameR);
+                        emptyMember.setPassword(passwordR);
+                        emptyMember.setPhone(phoneR);
+                        data.addMember(emptyMember);
+                        cout << "Thank you for registered!" << endl;
+                        cout << "This is your information: " << endl;
+                        data.getMemberByUsername(usernameR).showAll();
+                    }
                     break;
                 case 3: // Exit.
                     cout << "Application finished - Thank you" << endl;
@@ -341,7 +349,7 @@ int main(int argc, char *argv[])
             memberRunning = true;
             while (memberRunning)
             {
-                cout << "\n[Login Section] - Enter 'exit!please' if you want to exit anytime\n";
+                cout << "\n[Login Section] - Enter 'exit!please' to exit\n";
                 cout << setw(4) << " "
                      << "Please enter your username: ";
                 cin >> username;
@@ -362,22 +370,31 @@ int main(int argc, char *argv[])
                 {
                     if (data.verifyMemberByUsernameAndPassword(username, password))
                     {
+                        // Track logged in member
+                        Mem = data.getMemberByUsername(username);
+
                         cout << "\nSuscessfully logged in\n";
                         memberRunningAfterLogin = true;
                         while (memberRunningAfterLogin)
                         {
-                            // Track logged in member
-                            Mem = data.getMemberByUsername(username);
+                            // Re-Initialize data
                             Hou = Mem.getHouse();
+                            memberList = data.getMemberList();
                             houseList = data.getHouseList();
                             requestList = data.getRequestList();
+
                             for (auto &r : requestList)
                             {
                                 if (data.getMemberByHouseId(r.getHouse().getId()).getId() == Mem.getId())
-                                {
-                                    r.showAllRequestInfo();
                                     yourRequestList.push_back(r);
-                                }
+                            }
+
+                            for (auto &h : houseList)
+                            {
+                                if (h.getId() == Hou.getId() && Hou.getId() != 0)
+                                    hasHouse = true;
+                                else
+                                    hasHouse = false;
                             }
 
                             cout << "Press any key to continue..." << endl;
@@ -400,38 +417,105 @@ int main(int argc, char *argv[])
                                 break;
                             case 2: // List House for Occupant
                                 cout << "[List House for Occupant] \n";
-                                cout << "Please enter house information... \n";
-                                cout << "Enter house location (hanoi, saigon, hue): ";
-                                cin >> locationH;
-                                cout << "Enter start date for occupant (YYYY-MM-DD): ";
-                                cin >> startDateH;
-                                cout << "Enter end date for occupant (YYYY-MM-DD): ";
-                                cin >> endDateH;
-                                cout << "Enter min score for occupant (-10 to 10): ";
-                                cin >> minOccupantScoreH;
-                                cout << "Enter house consuming point per day: ";
-                                cin >> consumingPointH;
-                                cout << "Enter house description: ";
-                                cin.ignore();
-                                getline(cin, descriptionH);
-                                Hou = data.createHouseforOccupant(locationH, descriptionH, startDateH, endDateH, minOccupantScoreH, consumingPointH);
-                                Hou.setId(68);
-                                Mem.setHouse(Hou);
-                                data.updateHouse(Hou);
-                                cout << "This is your house information: \n";
-                                Mem.getHouse().showAllHouseInfo();
+                                if (hasHouse)
+                                {
+                                    cout << "You alread had a house being listed for occupant" << endl;
+                                    cout << "Do you want to update your house information (yes/no): ";
+                                    cin >> hasHouseResponse;
+                                    if (hasHouseResponse.compare("yes") == 0)
+                                    {
+                                        cout << "Please enter house information... \n";
+                                        cout << "Enter house location (hanoi, saigon, hue): ";
+                                        cin >> locationH;
+                                        cout << "Enter start date for occupant (YYYY-MM-DD): ";
+                                        cin >> startDateH;
+                                        cout << "Enter end date for occupant (YYYY-MM-DD): ";
+                                        cin >> endDateH;
+                                        cout << "Enter min score for occupant (-10 to 10): ";
+                                        cin >> minOccupantScoreH;
+                                        cout << "Enter house consuming point per day: ";
+                                        cin >> consumingPointH;
+                                        cout << "Enter house description: ";
+                                        cin.ignore();
+                                        getline(cin, descriptionH);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    cout << "Look like you don't have a house. Please follow instructions and register one\n";
+                                    cout << "Enter house location (hanoi, saigon, hue): ";
+                                    cin >> locationH;
+                                    cout << "Enter start date for occupant (YYYY-MM-DD) (date after 2023-1-1 only): ";
+                                    cin >> startDateH;
+                                    cout << "Enter end date for occupant (YYYY-MM-DD) (date after 2023-1-1 only): ";
+                                    cin >> endDateH;
+                                    cout << "Enter min score for occupant (-10 to 10): ";
+                                    cin >> minOccupantScoreH;
+                                    cout << "Enter house consuming point per day: ";
+                                    cin >> consumingPointH;
+                                    cout << "Enter house description: ";
+                                    cin.ignore();
+                                    getline(cin, descriptionH);
+                                }
+                                if (locationH.compare("hanoi") != 0 && locationH.compare("saigon") != 0 && locationH.compare("hue") != 0)
+                                {
+                                    cout << "You entered wrong location, please follow the instructions." << endl;
+                                }
+                                else if (checkStringDate(startDateH) != 1 || checkStringDate(endDateH) != 1)
+                                {
+                                    cout << "You entered wrong date, please follow the instructions." << endl;
+                                }
+                                else if (minOccupantScoreH < -10 || minOccupantScoreH > 10)
+                                {
+                                    cout << "You entered wrong minimum occupant score, please follow the instructions." << endl;
+                                }
+                                else
+                                {
+                                    Hou.setLocation(locationH);
+                                    Hou.setDescription(descriptionH);
+                                    Hou.setStartDate(startDateH);
+                                    Hou.setEndDate(endDateH);
+                                    Hou.setMinOccupantScore(minOccupantScoreH);
+                                    Hou.setConsumingPoint(consumingPointH);
+                                    data.updateHouse(Hou);
+                                    houseList = data.getHouseList();
+                                    Mem.setHouse(houseList.back());
+                                    data.updateMember(Mem);
+                                    cout << "This is your house information: \n";
+                                    data.getMemberByUsername(username).getHouse().showAll();
+                                }
+
                                 break;
                             case 3: // Unlist House for Occupant
                                 cout << "[Unlist House for Occupant] \n";
-                                cout << "Enter house id to unlist: ";
-                                cin >> houseId;
-                                data.deleteHouseById(houseId);
+                                if (hasHouse)
+                                {
+                                    cout << "You have a house listed for occupant" << endl;
+                                    cout << "Do you want to unlist this house (yes/no): ";
+                                    cin >> hasHouseResponse;
+                                    if (hasHouseResponse.compare("yes") == 0)
+                                    {
+                                        data.deleteHouseById(Hou.getId());
+                                        Mem.setHouse(emptyHouse);
+                                        data.updateMember(Mem);
+                                        data.deleteRequestByHouseId(Hou.getId());
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    cout << "Sorry, you don't have a house registered in our database" << endl;
+                                }
                                 break;
                             case 4: // View Available Houses to Occupy
                                 cout << "[View Available Houses to Occupy] \n";
-                                // chosenSTime = "2023-2-11";
-                                // chosenETime = "2023-2-16";
-                                // chosenLocation = "hanoi";
                                 cout << "Enter prefered start date (YYYY-MM-DD): ";
                                 cin >> chosenSTime;
                                 cout << "Enter prefered end date (YYYY-MM-DD): ";
@@ -462,65 +546,92 @@ int main(int argc, char *argv[])
                                 // chosenHouse = h1;
                                 cout << "Please enter house ID of the house that you chose: ";
                                 cin >> chosenHouseId;
-                                chosenHouse = data.getHouseById(chosenHouseId);
+                                if (chosenHouseId != Hou.getId() && data.verifyHouseById(chosenHouseId) == true)
+                                {
+                                    chosenHouse = data.getHouseById(chosenHouseId);
+                                    req.setHouse(chosenHouse);
+                                    req.setOccupant(Mem);
+                                    req.setRequestStatus(false);
+                                    data.addRequest(req);
+                                    req.showAll();
+                                }
+                                else
+                                {
+                                    cout << "There is something wrong with your input! Please try again." << endl;
+                                }
 
-                                req.setId(68);
-                                req.setHouse(chosenHouse);
-                                req.setOccupant(Mem);
-                                req.setRequestStatus(false);
-                                data.addRequest(req);
-                                req.showAll();
                                 break;
                             case 6: // View All Occupy Request to your House
                                 cout << "[View All Occupy Request to your House] \n";
-                                req.showAllRequestAttributes();
-                                for (auto &r : yourRequestList)
+                                if (yourRequestList.empty())
                                 {
-                                    r.showAllRequestInfo();
+                                    cout << "Sorry, you have no request to view yet" << endl;
                                 }
-                                break;
-                            case 7: // Response to Occupy Request
-                                cout << "[Response to Occupy Request] \n";
-                                // chosenResponse = "yes";
-                                // chosenRequestId = 1;
-                                cout << "Please enter Request ID of the request that you chose: ";
-                                cin >> chosenRequestId;
-                                cout << "Do you want to accept or deny this request (yes/no): ";
-                                cin >> chosenResponse;
-                                for (auto &r : yourRequestList)
+                                else
                                 {
-                                    if (r.getId() == chosenRequestId && chosenResponse.compare("yes") == 0)
+                                    req.showAllRequestAttributes();
+                                    for (auto &r : yourRequestList)
                                     {
-                                        // change occupy status for member houses after accept one of the requests
-                                        Mem.getHouse().setOccupyStatus(true);
-                                        data.updateHouse(Mem.getHouse());
-                                        data.updateMember(Mem);
-                                        // delete all requests in your request list after you accept one of them
-                                        for (auto &rr : yourRequestList)
-                                        {
-                                            if (rr.getId() == chosenRequestId)
-                                            {
-                                                yourRequestList.clear();
-                                                rr.setRequestStatus(true);
-                                                yourRequestList.push_back(rr);
-                                            }
-                                        }
-                                        // do the some thing above for request in data
-                                        data.deleteOtherRequestAfterAccept(r, yourRequestList);
-                                    }
-                                    if (r.getId() == chosenRequestId && chosenResponse.compare("no") == 0)
-                                    {
-                                        yourRequestList = data.deleteRequestFromRequestList(r, yourRequestList);
-                                        data.removeRequest(r);
+                                        r.showAllRequestInfo();
                                     }
                                 }
 
-                                // try to print out requests for testing -- will be delete later
-                                req.showAllRequestAttributes();
-                                for (auto &rr : yourRequestList)
+                                break;
+                            case 7: // Response to Occupy Request
+                                cout << "[Response to Occupy Request] \n";
+                                if (yourRequestList.empty())
                                 {
-                                    rr.showAllRequestInfo();
+                                    cout << "Sorry, you have no request to response" << endl;
+                                    break;
                                 }
+                                else
+                                {
+                                    cout << "Please enter Request ID of the request that you chose: ";
+                                    cin >> chosenRequestId;
+                                    cout << "Do you want to accept or deny this request (yes/no): ";
+                                    cin >> chosenResponse;
+
+                                    for (auto &r : yourRequestList)
+                                    {
+                                        if (r.getId() == chosenRequestId && chosenResponse.compare("yes") == 0)
+                                        {
+
+                                            // change occupy status for member houses after accept one of the requests
+                                            Hou.setOccupyStatus(true);
+                                            data.updateHouse(Hou);
+                                            data.updateMember(Mem);
+                                            // delete all requests in your request list after you accept one of them
+                                            for (auto &rr : yourRequestList)
+                                            {
+                                                if (rr.getId() == chosenRequestId)
+                                                {
+                                                    yourRequestList.clear();
+                                                    rr.setRequestStatus(true);
+                                                    yourRequestList.push_back(rr);
+                                                }
+                                            }
+                                            // do the some thing above for request in data
+                                            data.deleteOtherRequestAfterAccept(r, yourRequestList);
+                                        }
+                                        else if (r.getId() == chosenRequestId && chosenResponse.compare("no") == 0)
+                                        {
+                                            yourRequestList = data.deleteRequestFromRequestList(r, yourRequestList);
+                                            data.removeRequest(r);
+                                        }
+                                        else
+                                        {
+                                            cout << "There must be somthing wrong! Please try again." << endl;
+                                            break;
+                                        }
+                                    }
+                                    cout << "This is your request list" << endl;
+                                    req.showAllRequestAttributes();
+                                    for (auto &rr : yourRequestList)
+                                    {
+                                        rr.showAllRequestInfo();
+                                    }
+                                }
+
                                 break;
                             case 8: // Rate Occupied House
                                 cout << "[Rate Occupied House] \n";
@@ -585,36 +696,74 @@ int main(int argc, char *argv[])
             adminRunning = true;
             while (adminRunning)
             {
-                cout << "Press any key to continue..." << endl;
-                getch();
-                system("cls");
-                showAdminOptions();
-                cin >> adminOption;
-                switch (adminOption)
+                cout << "\nLogin Section - Enter 'exitx!please' to exit\n";
+                cout << setw(4) << ""
+                     << "Please enter your username: ";
+                cin >> usernameAdmin;
+                if (usernameAdmin.compare("exitx!please") == 0)
                 {
-                case 0: // Go Back
                     adminRunning = false;
                     break;
-                case 1: // View All Member Information
-                    cout << "[All Member Information]\n";
-                    data.ViewAllMembers();
-                    break;
-                case 2: // View All House Information
-                    cout << "[All House Information]\n";
-                    data.ViewAllHouses();
-                    break;
-                case 3: // View All Request Information
-                    cout << "[All Request Information]\n";
-                    data.ViewAllRequests();
-                    break;
-                case 4: // Exit.
-                    cout << "Application finished - Thank you" << endl;
-                    appRunning = false;
+                }
+                cout << setw(4) << ""
+                     << "Please enter your password: ";
+                cin >> passwordAdmin;
+                if (passwordAdmin.compare("exitx!please") == 0)
+                {
                     adminRunning = false;
                     break;
-                default:
-                    cout << "Oops, something went wrong. Please try again" << endl;
-                    break;
+                }
+
+                if (usernameAdmin.compare("admin") == 0)
+                {
+                    if (usernameAdmin.compare("admin") == 0 && passwordAdmin.compare("admin") == 0)
+                    {
+                        cout << "\nSuscessfully logged in\n";
+                        adminRunningAfterLogin = true;
+                        while (adminRunningAfterLogin)
+                        {
+                            cout << "Press any key to continue..." << endl;
+                            getch();
+                            system("cls");
+                            showAdminOptions();
+                            cin >> adminOption;
+                            switch (adminOption)
+                            {
+                            case 0: // Go Back
+                                adminRunningAfterLogin = false;
+                                break;
+                            case 1: // View All Member Information
+                                cout << "[All Member Information]\n";
+                                data.ViewAllMembers();
+                                break;
+                            case 2: // View All House Information
+                                cout << "[All House Information]\n";
+                                data.ViewAllHouses();
+                                break;
+                            case 3: // View All Request Information
+                                cout << "[All Request Information]\n";
+                                data.ViewAllRequests();
+                                break;
+                            case 4: // Exit.
+                                cout << "Application finished - Thank you" << endl;
+                                appRunning = false;
+                                adminRunning = false;
+                                adminRunningAfterLogin = false;
+                                break;
+                            default:
+                                cout << "Oops, something went wrong. Please try again" << endl;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cout << "\nIncorrect password\n";
+                    }
+                }
+                else
+                {
+                    cout << "\nIncorrect Username or Don't Have Account\n";
                 }
             }
             break;
@@ -623,80 +772,14 @@ int main(int argc, char *argv[])
             appRunning = false;
             break;
         default:
-            cout << "Oops, something went wrong. Please try again" << endl;
+            cout << "Oops, something went wrong! Please try again" << endl;
             break;
         }
+
+        // Store any changes to data to file
+        // data.writeDataToFile("A3A3.dat");
+        data.writeDataToFile("Application.dat");
     }
 
     return 0;
 }
-
-/** Function to Read and Write from/to File -- Act as a database **/
-/**
-int readHouseFromFile(string filename)
-{
-    House house;
-    fstream file;
-    file.open(filename, ios::in | ios::binary);
-    if (!file)
-    {
-        cout << "Error opening file" << endl;
-        return -1;
-    }
-    if (file.read((char *)&house, sizeof(house)))
-    {
-        cout << endl
-             << left << setw(10) << "HOUSE NAME"
-             << left << setw(10) << "CITY"
-             << left << setw(10) << "OCCUPATION STATUS"
-             << left << setw(10) << "HOUSE RATING"
-             << left << setw(10) << "MINIMUM SCORE REQUIRED" << endl;
-        while (!file.eof())
-        {
-            house.displayHouse();
-            file.read((char *)&house, sizeof(house));
-        }
-    }
-    else
-    {
-        cout << "Error reading from file" << endl;
-        return -1;
-    }
-    file.close();
-    return 0;
-};
-
-int writeHouseToFile(House house, string filename){
-    house.readHouse();
-    fstream file;
-    /// write to file
-    file.open(filename, ios::out | ios::binary | ios::app);
-    if (!file) {
-        cout << "Error writing file" << endl;
-        return -1;
-    }
-    file.write((char *) &house, sizeof(house));
-    file.close();
-    cout << "SAVED YOUR HOUSE DETAILS" << endl;
-    return 0;
-};
-
-int deleteHouseFromFile(string filename){
-    House house;
-    string houseName;
-    cout << "Please input house name you want to delete: ";
-    cin >> houseName;
-    fstream file;
-    file.open(filename, ios::in | ios::binary);
-    if (!file) {
-        cout << "Error opening file" << endl;
-        return -1;
-    }
-    vector<string> HName;
-    while (getline(file, houseName))
-        HName.push_back(houseName);
-    file.close();
-    return 0;
-};
-
-**/
