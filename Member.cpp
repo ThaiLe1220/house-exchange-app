@@ -68,13 +68,15 @@ void Member::showAllMemberAttributes()
 
 void Member::showAllMemberInfo()
 {
+    cout << setprecision(10);
     cout << "   " << setw(10) << this->id
          << " | " << setw(12) << this->fullname
          << " | " << setw(12) << this->username
          << " | " << setw(12) << this->password
          << " | " << setw(10) << this->phone
-         << " | " << setw(12) << this->creditPoint
-         << " | " << setw(15) << this->occupierRating
+         << " | " << setw(12) << this->creditPoint;
+    cout << setprecision(2);
+    cout << " | " << setw(15) << this->occupierRating
          << " | " << setw(8) << this->house.getId() << "\n";
 }
 

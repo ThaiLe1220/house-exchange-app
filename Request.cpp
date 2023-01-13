@@ -66,7 +66,8 @@ void Request::showAllRequestAttributes()
 }
 
 void Request::showAllRequestInfo()
-{
+{   
+    cout << setprecision(2);
     cout << boolalpha;
     if (this->requestStatus == false)
     {
