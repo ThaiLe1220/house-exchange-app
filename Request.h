@@ -14,8 +14,8 @@ private:
     bool requestStatus = false;
     double houseRating = 0;
     double occupantRating = 0;
-    string houseReview = "";
-    string occupantReview = "";
+    string houseReview = " ";
+    string occupantReview = " ";
 
 public:
     Request();
