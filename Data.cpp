@@ -42,7 +42,8 @@ void Data::addHouse(House house) // add new house to data: houseList
             maxId = h.getId();
         }
     }
-    if (house.getId() == 0)
+    if (house.getId() == 0 && house.getLocation().compare(" ") != 0 &&
+        house.getDescription().compare(" ") != 0)
     {
         house.setId(maxId + 1);
     }
@@ -62,6 +63,7 @@ void Data::addMember(Member member) // add new member to data: memberList
     if (member.getId() == 0)
     {
         member.setId(maxId + 1);
+        member.setHouse(House());
     }
     this->memberList.push_back(member);
 }
@@ -137,7 +139,7 @@ void Data::updateHouse(House house) // update house to data: houseList, add new 
     bool status = false;
     for (auto &h : this->houseList)
     {
-        if (h.getId() == house.getId())
+        if (h.getId() == house.getId() && h.getId() != 0)
         {
             status = true;
             removeHouse(h);
@@ -615,7 +617,14 @@ void Data::readDataFromFile(string filename) // Read and extract data from file 
                         {
                             memberFromFile.setOccupierRating(stoi(myText.substr(prev + 2, i - (prev + 2))));
                             int hId = stoi(myText.substr(i + 2, myText.size() - i - 1 - 1));
-                            memberFromFile.setHouse(getHouseById(hId));
+                            if (hId == 0)
+                            {
+                                memberFromFile.setHouse(House());
+                            }
+                            else
+                            {
+                                memberFromFile.setHouse(getHouseById(hId));
+                            }
                         }
                     }
                     temp++;

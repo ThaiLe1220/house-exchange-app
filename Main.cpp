@@ -314,8 +314,8 @@ int main(int argc, char *argv[])
                     cin >> guestString;
 
                     if (
-                        guestString.compare("0") == 1 || guestString.compare("1") == 1 || guestString.compare("2") == 1 ||
-                        guestString.compare("3") == 1)
+                        guestString.compare("0") == 0 || guestString.compare("1") == 0 || guestString.compare("2") == 0 ||
+                        guestString.compare("3") == 0)
                     {
                         guestOption = stoi(guestString);
                         switch (guestOption)
@@ -333,7 +333,7 @@ int main(int argc, char *argv[])
                             break;
                         case 2: // Register as Member
                             cout << "[Register Section] \n";
-                            cout << " Please enter your full name: ";
+                            cout << "Please enter your full name: ";
                             cin.ignore();
                             getline(cin, fullnameR);
                             cout << "Please enter username: ";
@@ -411,10 +411,10 @@ int main(int argc, char *argv[])
                                 // Re-Initialize data
                                 data.updateHouseRating();
                                 data.updateOccupantRating();
-                                Hou = Mem.getHouse();
                                 memberList = data.getMemberList();
                                 houseList = data.getHouseList();
                                 requestList = data.getRequestList();
+                                yourRequestList.clear();
 
                                 for (auto &r : requestList)
                                 {
@@ -424,10 +424,24 @@ int main(int argc, char *argv[])
 
                                 for (auto &h : houseList) // check if member has a house or not
                                 {
-                                    if (h.getId() == Hou.getId() || Hou.getId() != 0)
+                                    if (h.getId() == Hou.getId() && Hou.getId() != 0)
+                                    {
                                         hasHouse = true;
+                                    }
                                     else
+                                    {
                                         hasHouse = false;
+                                    }
+                                }
+
+                                if (hasHouse)
+                                {
+                                    Hou = Mem.getHouse();
+                                }
+                                else
+                                {
+                                    Mem.setHouse(emptyHouse);
+                                    Hou = Mem.getHouse();
                                 }
 
                                 cout << "Press any key to continue..." << endl;
@@ -470,9 +484,9 @@ int main(int argc, char *argv[])
                                                 cout << "Please enter house information... \n";
                                                 cout << "Enter house location (hanoi, saigon, hue): ";
                                                 cin >> locationH;
-                                                cout << "Enter start date for occupant (YYYY-MM-DD): ";
+                                                cout << "Enter start date for occupant (YYYY-MM-DD) after 2023-1-1 only: ";
                                                 cin >> startDateH;
-                                                cout << "Enter end date for occupant (YYYY-MM-DD): ";
+                                                cout << "Enter end date for occupant (YYYY-MM-DD) after 2023-1-1 only: ";
                                                 cin >> endDateH;
                                                 cout << "Enter min score for occupant (-10 to 10): ";
                                                 if (cin >> minOccupantScoreH)
@@ -506,9 +520,9 @@ int main(int argc, char *argv[])
                                             cout << "Look like you don't have a house. Please follow instructions and register one\n";
                                             cout << "Enter house location (hanoi, saigon, hue): ";
                                             cin >> locationH;
-                                            cout << "Enter start date for occupant (YYYY-MM-DD): ";
+                                            cout << "Enter start date for occupant (YYYY-MM-DD) after 2023-1-1 only: ";
                                             cin >> startDateH;
-                                            cout << "Enter end date for occupant (YYYY-MM-DD): ";
+                                            cout << "Enter end date for occupant (YYYY-MM-DD) after 2023-1-1 only: ";
                                             cin >> endDateH;
                                             cout << "Enter min score for occupant (-10 to 10): ";
                                             if (cin >> minOccupantScoreH)
@@ -571,6 +585,7 @@ int main(int argc, char *argv[])
                                             cin >> hasHouseResponse;
                                             if (hasHouseResponse.compare("yes") == 0)
                                             {
+                                                cout << "You have successfully unlisted this house" << endl;
                                                 data.deleteHouseById(Hou.getId());
                                                 Mem.setHouse(emptyHouse);
                                                 data.updateMember(Mem);
@@ -588,9 +603,9 @@ int main(int argc, char *argv[])
                                         break;
                                     case 4: // View Available Houses to Occupy
                                         cout << "[View Available Houses to Occupy] \n";
-                                        cout << "Enter prefered start date (YYYY-MM-DD): ";
+                                        cout << "Enter prefered start date (YYYY-MM-DD) after 2023-1-1 only: ";
                                         cin >> chosenSTime;
-                                        cout << "Enter prefered end date (YYYY-MM-DD): ";
+                                        cout << "Enter prefered end date (YYYY-MM-DD) after 2023-1-1 only: ";
                                         cin >> chosenETime;
                                         cout << "Enter prefered location (hanoi/hue/saigon): ";
                                         cin >> chosenLocation;
@@ -603,9 +618,9 @@ int main(int argc, char *argv[])
                                             period = countDayDiff(chosenSTime, chosenETime);
                                             if (
                                                 countDayDiff(chosenSTime, s) < 0 && countDayDiff(chosenETime, e) > 0 && // check if entered date in the available range
-                                                chosenLocation.compare(houseList[i].getLocation()) == 0 && 
+                                                chosenLocation.compare(houseList[i].getLocation()) == 0 &&
                                                 Mem.getCreditPoint() >= houseList[i].getConsumingPoint() * period && // check member credit point vs (point/day * period)
-                                                Mem.getOccupierRating() >= houseList[i].getMinOccupantScore() && // check min occupant score
+                                                Mem.getOccupierRating() >= houseList[i].getMinOccupantScore() &&     // check min occupant score
                                                 Mem.getHouse().getId() != houseList[i].getId())
                                             {
                                                 yourHouseList.push_back(houseList[i]);
@@ -696,7 +711,8 @@ int main(int argc, char *argv[])
                                                             yourRequestList.push_back(rr);
                                                             data.updateRequest(rr);
                                                         }
-                                                        else {
+                                                        else
+                                                        {
                                                             data.removeRequest(rr);
                                                         }
                                                     }
@@ -985,8 +1001,6 @@ int main(int argc, char *argv[])
             cout << "Wrong input! Please try again" << endl;
         }
 
-        // Store any changes to data to file
-        // data.writeDataToFile("A3A3.dat");
         data.writeDataToFile("Application.dat");
     }
 

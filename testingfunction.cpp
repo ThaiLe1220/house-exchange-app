@@ -1,7 +1,7 @@
-// #include "Member.h"
-// #include "House.h"
-// #include "Request.h"
-// #include "Data.h"
+#include "Member.h"
+#include "House.h"
+#include "Request.h"
+#include "Data.h"
 
 #include <vector>
 #include <iomanip>
@@ -162,25 +162,13 @@ int countDayDiff(string start, string end)
      return days_from_civil(ye, me, de) - days_from_civil(ys, ms, ds);
 }
 
-// g++ testingfunction.cpp Member.cpp House.cpp Data.cpp Admin.cpp Request.cpp -o tf
+// g++ testingfunction.cpp Member.cpp House.cpp Data.cpp Request.cpp -o tf
 
 int main(int argc, char *argv[])
 {
-
-     // string text;
-     // cout << "Enter string:";
-     // cin >> text;
-
-     // cout << text.compare("1") << endl;
-     // cout << text.compare("2") << endl;
-     // cout << text.compare("3") << endl;
-     // cout << text.compare("4") << endl;
-     cout << stoi("1") << endl;
-     int x;
-     x = stoi("2");
-     double y = stoi("3");
-     cout << x << endl;
-     cout << y << endl;
+     Member mem;
+     cout << mem.getHouse().getId();
+     
 
      return 0;
 }
