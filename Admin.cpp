@@ -9,11 +9,5 @@ using namespace std;
 Admin::Admin() {}
 Admin::~Admin() {}
 
-Admin::Admin(int id, string username, string password) 
-{
-    this->id = id;
-    this->username = username;
-    this->password = password;
-}
-
-
+string Admin::getUsernamme() { return this->username; }
+string Admin::getPassword() { return this->password; }
