@@ -191,14 +191,13 @@ int countDayDiff(string start, string end)
 /** Main Start - Our application run here **/
 
 /** How to compile and run **/
-/*  g++ Main.cpp House.cpp Member.cpp Request.cpp Admin.cpp Data.cpp -o Main
+/*  g++ Main.cpp House.cpp Member.cpp Request.cpp Data.cpp -o Main
 /* ./Main
 */
 
 int main(int argc, char *argv[])
 { // Data class to store all data
     Data data = Data();
-    data.readDataFromFile("Application.dat");
 
     vector<Member> memberList;
     vector<House> houseList;
@@ -272,7 +271,10 @@ int main(int argc, char *argv[])
     while (appRunning)
     {
         // Initialize data
+        // data.readDataFromFile("data.dat");
         data.readDataFromFile("Application.dat");
+        data.updateHouseRating();
+        data.updateOccupantRating();
         memberList = data.getMemberList();
         houseList = data.getHouseList();
         requestList = data.getRequestList();
@@ -378,6 +380,8 @@ int main(int argc, char *argv[])
                         while (memberRunningAfterLogin)
                         {
                             // Re-Initialize data
+                            data.updateHouseRating();
+                            data.updateOccupantRating();
                             Hou = Mem.getHouse();
                             memberList = data.getMemberList();
                             houseList = data.getHouseList();
@@ -385,11 +389,11 @@ int main(int argc, char *argv[])
 
                             for (auto &r : requestList)
                             {
-                                if (data.getMemberByHouseId(r.getHouse().getId()).getId() == Mem.getId())
-                                    yourRequestList.push_back(r);
+                                if (data.getMemberByHouseId(r.getHouse().getId()).getId() == Mem.getId() && r.getRequestStatus() == false)
+                                    yourRequestList.push_back(r); // create your request list -> track request list of logged in member
                             }
 
-                            for (auto &h : houseList)
+                            for (auto &h : houseList) // check if member has a house or not
                             {
                                 if (h.getId() == Hou.getId() && Hou.getId() != 0)
                                     hasHouse = true;
@@ -635,8 +639,6 @@ int main(int argc, char *argv[])
                                 break;
                             case 8: // Rate Occupied House
                                 cout << "[Rate Occupied House] \n";
-                                // houseRatingM = 5;
-                                // houseReviewM = "";
                                 cout << "Please enter rating for the house you occupied: ";
                                 cin >> houseRatingM;
                                 cout << "Please enter review for the house you occupied: ";
@@ -645,27 +647,54 @@ int main(int argc, char *argv[])
                                 {
                                     if (r.getOccupant().getId() == Mem.getId() && r.getRequestStatus() == true)
                                     {
-                                        r.setHouseRating(houseRatingM);
-                                        r.setHouseReview(houseReviewM);
-                                        r.showAll();
+                                        if (r.getHouseRating() != 0 || r.getHouseReview().compare(" ") != 0)
+                                        {
+                                            r.setHouseRating(houseRatingM);
+                                            r.setHouseReview(houseReviewM);
+                                            r.showAll();
+                                            data.updateRequest(r);
+                                        }
+                                        else
+                                        {
+                                            cout << "Sorry you already rate and review for this house" << endl;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cout << "Sorry you don't have any occupied house." << endl;
+                                        break;
                                     }
                                 }
                                 break;
                             case 9: // Rate Occupant of your House
                                 cout << "[Rate Occupant of your House] \n";
-                                // occupantRatingM = 5;
-                                // occupantReviewM = "";
-                                cout << "Please enter rating for the occupant of your house: ";
-                                cin >> occupantRatingM;
-                                cout << "Please enter review for the occupant of your house: ";
-                                cin >> occupantReviewM;
+
                                 for (auto &r : requestList)
                                 {
                                     if (r.getHouse().getId() == Mem.getHouse().getId() && r.getRequestStatus() == true)
                                     {
-                                        r.setOccupantRating(occupantRatingM);
-                                        r.setOccupantReview(occupantReviewM);
-                                        r.showAll();
+                                        if (r.getOccupantRating() != 0 || r.getOccupantReview().compare(" ") != 0)
+                                        {
+                                            cout << "Please enter rating for the occupant of your house: ";
+                                            cin >> occupantRatingM;
+                                            cout << "Please enter review for the occupant of your house: ";
+                                            cin >> occupantReviewM;
+                                            r.setOccupantRating(occupantRatingM);
+                                            r.setOccupantReview(occupantReviewM);
+                                            r.showAll();
+                                            data.updateRequest(r);
+                                        }
+                                        else
+                                        {
+                                            cout << "Sorry you already rate and review this occupant of your house" << endl;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cout << "Sorry you don't have any occupant of your house." << endl;
+                                        break;
                                     }
                                 }
                                 break;
