@@ -4,26 +4,26 @@ id,,fullname,,username,,password,,phone,,creditPoint,,occupierRating,,houseId
 2,,phu,,phu,,phu,,phone2,,200,,7,,2
 3,,quy,,quy,,quy,,phone3,,300,,5,,3
 4,,kha,,kha,,kha,,phone4,,400,,0,,4
-5,,the anh,,anh,,anh,,phone5,,500,,6,,5
+5,,the anh,,anh,,anh,,phone5,,500,,5.5,,5
 6,,full name 6,,username6,,password6,,phone6,,600,,7,,6
 7,,full name 7,,username7,,password7,,phone7,,700,,9,,7
 8,,full name 8,,username8,,password8,,phone8,,800,,6,,8
 9,,full name 9,,username9,,password9,,phone9,,900,,10,,9
-10,,full name 10,,username10,,password10,,phone10,,1000,,5,,10
 [Member Data End]
 --------------------------------------------------------------------------
 [House Data Start]
 id,,location,,description,,houseRating,,minOccupantScore,,consumingPoint,,startDate,,endDate,,occupyStatus
-1,,saigon,,saigon1,,0,,-9,,36,,2023-1-8,,2023-2-27,,0
-2,,saigon,,saigon2,,0,,-2,,30,,2023-1-13,,2023-4-23,,0
-3,,saigon,,saigon3,,2.5,,-8,,10,,2023-1-14,,2023-5-24,,0
-4,,saigon,,saigon4,,0,,-8,,35,,2023-2-5,,2023-3-25,,0
-5,,saigon,,saigon5,,3.33333,,-10,,20,,2023-2-1,,2023-7-21,,0
+1,,saigon,,saigon1,,5,,-9,,36,,2023-1-8,,2023-2-27,,0
+2,,saigon,,saigon2,,4,,-2,,30,,2023-1-13,,2023-4-23,,0
+3,,saigon,,saigon3,,1,,-8,,10,,2023-1-14,,2023-5-24,,0
+4,,saigon,,saigon4,,5,,-8,,35,,2023-2-5,,2023-3-25,,0
+5,,saigon,,saigon5,,2.5,,-10,,20,,2023-2-1,,2023-7-21,,0
 6,,saigon,,saigon6,,4,,-2,,30,,2023-2-13,,2023-4-23,,0
-7,,hue,,hue7,,-0.2,,0,,10,,2023-2-14,,2023-3-24,,0
-8,,hanoi,,hanoi8,,0,,2,,15,,2023-2-5,,2023-5-25,,0
+7,,hue,,hue7,,-1.25,,0,,10,,2023-2-14,,2023-3-24,,0
+8,,hanoi,,hanoi8,,2,,2,,15,,2023-2-5,,2023-5-25,,0
 9,,hanoi,,hanoi9,,4,,-3,,15,,2023-1-5,,2023-9-29,,0
-10,,hanoi,,saigon10,,6.5,,3,,10,,2023-2-10,,2023-10-10,,0
+10,,hanoi,,saigon10,,8,,3,,10,,2023-2-10,,2023-10-10,,0
+11,,saigon,,ewqewq wqeeqwj ewqq ,,0,,9,,32,,2023-1-1,,2023-12-12,,1
 [House Data End]
 --------------------------------------------------------------------------
 [Request Data Start]
@@ -43,14 +43,14 @@ id,,occupantId,,houseId,,houseRating,,occupantRating,,houseReview,,occupantRevie
 13,,9,,8,,2,,10,,good4 house,,nice4 ocuupant,,1
 14,,3,,1,,5,,5,,good5 house,,nice5 ocuupant,,1
 15,,5,,2,,4,,6,,poor house5,,nice ocuupant5,,1
-16,,10,,9,,4,,5,,poor house9,,nice ocuupant10,,1
+16,,5,,9,,4,,5,,poor house9,,nice ocuupant10,,1
 17,,6,,5,,4,,7,,poor house5,,nice ocuupant6,,1
 18,,7,,6,,4,,9,,poor house6,,nice ocuupant7,,1
 19,,8,,7,,2,,6,,poor house7,,nice ocuupant8,,1
 20,,9,,4,,0,,0,, ,, ,,0
-21,,10,,5,,0,,0,, ,, ,,0
+21,,9,,5,,0,,0,, ,, ,,0
 23,,5,,7,,0,,0,, ,, ,,0
-25,,1,,6,,0,,0,, ,, ,,0
+25,,1,,6,,0,,0,, ,, ,,1
 26,,4,,1,,0,,0,, ,, ,,0
 27,,5,,4,,0,,0,, ,, ,,0
 28,,2,,1,,0,,0,, ,, ,,1

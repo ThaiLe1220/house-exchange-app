@@ -749,11 +749,12 @@ int main(int argc, char *argv[])
                                             cout << "Invalid Input! Please input a numerical value." << endl;
                                             break;
                                         }
+                                        requestList = data.getRequestList();
                                         for (auto &r : requestList)
                                         {
                                             if (r.getOccupant().getId() == Mem.getId() && r.getRequestStatus() == true)
                                             {
-                                                if (r.getHouseRating() != 0 || r.getHouseReview().compare(" ") != 0)
+                                                if (r.getHouseRating() == 0 || r.getHouseReview().compare(" ") == 0)
                                                 {
                                                     r.setHouseRating(houseRatingM);
                                                     r.setHouseReview(houseReviewM);
@@ -780,7 +781,7 @@ int main(int argc, char *argv[])
                                         {
                                             if (r.getHouse().getId() == Mem.getHouse().getId() && r.getRequestStatus() == true)
                                             {
-                                                if (r.getOccupantRating() != 0 || r.getOccupantReview().compare(" ") != 0)
+                                                if (r.getOccupantRating() == 0 || r.getOccupantReview().compare(" ") == 0)
                                                 {
                                                     cout << "Please enter rating for the occupant of your house: ";
                                                     if (cin >> occupantRatingM)
