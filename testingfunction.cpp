@@ -1,12 +1,17 @@
-#include "Member.h"
-#include "House.h"
+// #include "Member.h"
+// #include "House.h"
+// #include "Request.h"
+// #include "Data.h"
 
-#include <iostream>
-#include <string>
 #include <vector>
 #include <iomanip>
+#include <string>
+#include <iostream>
 #include <ctime>
 #include <chrono>
+
+#include <conio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -157,76 +162,12 @@ int countDayDiff(string start, string end)
      return days_from_civil(ye, me, de) - days_from_civil(ys, ms, ds);
 }
 
-// g++ testingfunction.cpp Member.cpp House.cpp -o tf
+// g++ testingfunction.cpp Member.cpp House.cpp Data.cpp Admin.cpp Request.cpp -o tf
 
 int main(int argc, char *argv[])
 {
-     // int choice;
-     // string case1Choice;
-
-     // bool appRunning = true;
-     // bool case1Running = true;
-
-     // while (appRunning)
-     // {
-     //      cout << "Enter sth: ";
-     //      cin >> choice;
-     //      switch (choice)
-     //      {
-     //      case 0:
-     //           cout << "Your choice is " << choice << endl;
-     //           break;
-     //      case 1:
-     //           case1Running = true;
-     //           cout << "Your choice is " << choice << endl;
-     //           while (case1Running)
-     //                {
-     //                     cout << "Enter case 1 choice: ";
-     //                     cin >> case1Choice;
-     //                     switch (case1Choice)
-     //                     {
-     //                     case '0':
-     //                          cout << "You want to go back!" << endl;
-     //                          case1Running = false;
-     //                     case '1':
-     //                          cout << "Continue..." << endl;
-     //                          break;
-     //                     default:
-     //                          cout << "Something Weird! Please try again" << endl;
-     //                          break;
-     //                     }
-     //                }
-     //           break;
-
-     //      case 10:
-     //           cout << "Your choice is " << choice << endl;
-     //           appRunning = false;
-     //           break;
-
-     //      default:
-     //           cout << "Something Weird! Please try again" << endl;
-     //           break;
-     //      }
-     // }
-     // cout << "Application finished" << endl;
-
-     // vector<int> v = {0, 1, 2, 3, 4, 5, 6, 7};
-
-     // for (auto &i : v)
-     // {
-     //      if (i == 3)
-     //      {
-     //           v.clear();
-     //           v.push_back(i);
-     //      }
-     // }
-
-     // for (auto &i : v)
-     // {
-     //      cout << i << " " << endl;
-     // }
-
-
+     cout << checkStringDate("2023-1-1") << endl;
+     cout << checkStringDate("2023-12-31") << endl;
 
      return 0;
 }
