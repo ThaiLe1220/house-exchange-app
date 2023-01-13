@@ -166,8 +166,21 @@ int countDayDiff(string start, string end)
 
 int main(int argc, char *argv[])
 {
-     cout << checkStringDate("2023-1-1") << endl;
-     cout << checkStringDate("2023-12-31") << endl;
+
+     // string text;
+     // cout << "Enter string:";
+     // cin >> text;
+
+     // cout << text.compare("1") << endl;
+     // cout << text.compare("2") << endl;
+     // cout << text.compare("3") << endl;
+     // cout << text.compare("4") << endl;
+     cout << stoi("1") << endl;
+     int x;
+     x = stoi("2");
+     double y = stoi("3");
+     cout << x << endl;
+     cout << y << endl;
 
      return 0;
 }

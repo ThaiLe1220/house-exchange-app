@@ -10,6 +10,7 @@ id,,fullname,,username,,password,,phone,,creditPoint,,occupierRating,,houseId
 8,,full name 8,,username8,,password8,,phone8,,800,,6,,8
 9,,full name 9,,username9,,password9,,phone9,,900,,10,,9
 10,,full name 10,,username10,,password10,,phone10,,1000,,5,,10
+11,,q,,q,,q,,q,,500,,0,,10
 [Member Data End]
 --------------------------------------------------------------------------
 [House Data Start]
