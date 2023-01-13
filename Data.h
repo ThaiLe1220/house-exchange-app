@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #ifndef DATA_H
 #define DATA_H
@@ -48,20 +49,23 @@ public:
     Request getRequestById(int id);
     Member getMemberByUsername(string username);
     Member getMemberByHouseId(int id);
-    bool verifyMemberByUsername(string username);                             // New function to verify member by username
-    bool verifyMemberByUsernameAndPassword(string username, string password); // New function to verify member by username and password
-
-    House createHouseforOccupant(string location, string description, string startDate, string endDate, double minOccupantScore, double consumingPorint);
+    bool verifyMemberByUsername(string username);                             
+    bool verifyMemberByUsernameAndPassword(string username, string password); 
+    bool verifyHouseById(int id);
+    bool verifyRequestById(int id);
 
     Request createRequestToOccupy(Member occupant, int houseId);
     vector<Request> deleteRequestFromRequestList(Request request, vector<Request> requests);
 
-
     void deleteHouseById(int id);
     void deleteOtherRequestAfterAccept(Request request, vector<Request> requests);
+    void deleteRequestByHouseId(int id);
     void ViewAllMembers();
     void ViewAllHouses();
     void ViewAllRequests();
+
+    void writeDataToFile(string filename);
+    void readDataFromFile(string filename);
 };
 
 #endif
