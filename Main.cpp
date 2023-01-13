@@ -415,6 +415,7 @@ int main(int argc, char *argv[])
                                 houseList = data.getHouseList();
                                 requestList = data.getRequestList();
                                 yourRequestList.clear();
+                                Hou = Mem.getHouse();
 
                                 for (auto &r : requestList)
                                 {
@@ -424,7 +425,7 @@ int main(int argc, char *argv[])
 
                                 for (auto &h : houseList) // check if member has a house or not
                                 {
-                                    if (h.getId() == Hou.getId() && Hou.getId() != 0)
+                                    if (h.getId() == Hou.getId() || Hou.getId() != 0)
                                     {
                                         hasHouse = true;
                                     }
@@ -433,17 +434,6 @@ int main(int argc, char *argv[])
                                         hasHouse = false;
                                     }
                                 }
-
-                                if (hasHouse)
-                                {
-                                    Hou = Mem.getHouse();
-                                }
-                                else
-                                {
-                                    Mem.setHouse(emptyHouse);
-                                    Hou = Mem.getHouse();
-                                }
-
                                 cout << "Press any key to continue..." << endl;
                                 getch();
                                 system("cls");
@@ -568,7 +558,6 @@ int main(int argc, char *argv[])
                                             Hou.setConsumingPoint(consumingPointH);
                                             Hou.setOccupyStatus(true);
                                             data.updateHouse(Hou);
-                                            houseList = data.getHouseList();
                                             Mem.setHouse(houseList.back());
                                             data.updateMember(Mem);
                                             cout << "This is your house information: \n";

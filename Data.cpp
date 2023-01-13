@@ -42,8 +42,7 @@ void Data::addHouse(House house) // add new house to data: houseList
             maxId = h.getId();
         }
     }
-    if (house.getId() == 0 && house.getLocation().compare(" ") != 0 &&
-        house.getDescription().compare(" ") != 0)
+    if (house.getId() == 0)
     {
         house.setId(maxId + 1);
     }
@@ -63,7 +62,6 @@ void Data::addMember(Member member) // add new member to data: memberList
     if (member.getId() == 0)
     {
         member.setId(maxId + 1);
-        member.setHouse(House());
     }
     this->memberList.push_back(member);
 }

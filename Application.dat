@@ -9,7 +9,6 @@ id,,fullname,,username,,password,,phone,,creditPoint,,occupierRating,,houseId
 7,,full name 7,,username7,,password7,,phone7,,700,,9,,7
 8,,full name 8,,username8,,password8,,phone8,,800,,6,,8
 9,,full name 9,,username9,,password9,,phone9,,900,,10,,9
-10,,qq,,qq,,qq,,qq,,500,,0,,0
 [Member Data End]
 --------------------------------------------------------------------------
 [House Data Start]
@@ -24,6 +23,7 @@ id,,location,,description,,houseRating,,minOccupantScore,,consumingPoint,,startD
 8,,hanoi,,hanoi8,,2,,2,,15,,2023-2-5,,2023-5-25,,0
 9,,hanoi,,hanoi9,,4,,-3,,15,,2023-1-5,,2023-9-29,,0
 10,,hanoi,,saigon10,,8,,3,,10,,2023-2-10,,2023-10-10,,0
+11,,saigon,,ewqewq wqeeqwj ewqq ,,0,,9,,32,,2023-1-1,,2023-12-12,,1
 [House Data End]
 --------------------------------------------------------------------------
 [Request Data Start]
