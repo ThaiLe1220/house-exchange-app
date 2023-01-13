@@ -760,6 +760,8 @@ int main(int argc, char *argv[])
                                                     r.setHouseReview(houseReviewM);
                                                     r.showAll();
                                                     data.updateRequest(r);
+                                                    cout << "Thank you for rating" << endl;
+                                                    break;
                                                 }
                                                 else
                                                 {
@@ -805,6 +807,8 @@ int main(int argc, char *argv[])
                                                     r.setOccupantReview(occupantReviewM);
                                                     r.showAll();
                                                     data.updateRequest(r);
+                                                    cout << "Thank you for rating" << endl;
+                                                    break;
                                                 }
                                                 else
                                                 {
