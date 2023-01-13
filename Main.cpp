@@ -558,6 +558,7 @@ int main(int argc, char *argv[])
                                             Hou.setConsumingPoint(consumingPointH);
                                             Hou.setOccupyStatus(true);
                                             data.updateHouse(Hou);
+                                            houseList = data.getHouseList();
                                             Mem.setHouse(houseList.back());
                                             data.updateMember(Mem);
                                             cout << "This is your house information: \n";
