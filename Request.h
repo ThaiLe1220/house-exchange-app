@@ -43,6 +43,11 @@ public:
     void showAllRequestAttributes();
     void showAllRequestInfo();
     void showAll();
+
+    void showOccupantRatingReviewAttributes();
+    void showOccupantRatingReview();
+    void showHouseRatingReviewAttributes();
+    void showHouseRatingReview();
 };
 
 #endif

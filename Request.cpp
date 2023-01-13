@@ -66,7 +66,7 @@ void Request::showAllRequestAttributes()
 }
 
 void Request::showAllRequestInfo()
-{   
+{
     cout << setprecision(2);
     cout << boolalpha;
     if (this->requestStatus == false)
@@ -91,7 +91,7 @@ void Request::showAllRequestInfo()
              << " | " << setw(14) << this->houseRating
              << " | " << setw(16) << this->occupantRating
              << " | " << setw(20) << this->houseReview
-             << " | " << setw(15) << this->occupantReview << "\n";
+             << " | " << setw(20) << this->occupantReview << "\n";
     }
 }
 
@@ -99,4 +99,35 @@ void Request::showAll()
 {
     showAllRequestAttributes();
     showAllRequestInfo();
+}
+void Request::showOccupantRatingReviewAttributes()
+{
+    cout << "   " << setw(11) << "occupant id"
+         << " | " << setw(20) << "house occupied id"
+         << " | " << setw(16) << "occupant rating"
+         << " | " << setw(20) << "occpant review\n";
+}
+
+void Request::showHouseRatingReviewAttributes()
+{
+    cout << "   " << setw(20) << "house occupied id"
+         << " | " << setw(11) << "occupant id"
+         << " | " << setw(14) << "house rating"
+         << " | " << setw(20) << "house review\n";
+}
+
+void Request::showOccupantRatingReview()
+{
+    cout << "   " << setw(11) << this->occupant.getId()
+         << " | " << setw(20) << this->house.getId()
+         << " | " << setw(16) << this->occupantRating
+         << " | " << setw(20) << this->occupantReview << "\n";
+}
+
+void Request::showHouseRatingReview()
+{
+    cout << "   " << setw(20) << this->house.getId()
+         << " | " << setw(11) << this->occupant.getId()
+         << " | " << setw(14) << this->houseRating
+         << " | " << setw(20) << this->houseReview << "\n";
 }
