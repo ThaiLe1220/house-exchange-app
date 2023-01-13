@@ -1,7 +1,6 @@
 #include <string>
 #include <iostream>
 
-
 #ifndef HOUSE_H
 #define HOUSE_H
 
@@ -11,13 +10,13 @@ class House
 {
 private:
     int id = 0;
-    string location = "";
-    string description = "";
+    string location = " ";
+    string description = " ";
     double houseRating = 0;
     double minOccupantScore = -10;
     double consumingPoint = 0;
-    string startDate = "";
-    string endDate = "";
+    string startDate = " ";
+    string endDate = " ";
     bool occupyStatus = false;
 
 public:
@@ -27,7 +26,7 @@ public:
         int id,
         string location,
         string description,
-        double houseRatin,
+        double houseRating,
         double minOccupantScore,
         double consumingPoint,
         string startDate,
@@ -54,9 +53,10 @@ public:
     void setEndDate(string endDate);
     void setOccupyStatus(bool Occpystatus);
 
-
     void showAllHouseAttributes();
     void showAllHouseInfo();
+    void showHouseAttributesforGuest();
+    void showHouseforGuest();
     void showAll();
 };
 

@@ -86,6 +86,29 @@ void House::showAllHouseInfo()
          << " | " << setw(13) << this->occupyStatus
          << " | " << setw(12) << this->description << "\n";
 }
+void House::showHouseAttributesforGuest()
+{
+    cout << "   " << setw(8) << "house id"
+         << " | " << setw(8) << "location"
+         << " | " << setw(12) << "house rating"
+         << " | " << setw(19) << "min occupant score"
+         << " | " << setw(15) << "consuming point"
+         << " | " << setw(12) << "period start"
+         << " | " << setw(12) << "period end"
+         << " | " << setw(12) << "house description\n";
+}
+void House::showHouseforGuest()
+{
+    cout << boolalpha;
+    cout << "   " << setw(8) << this->id
+         << " | " << setw(8) << this->location
+         << " | " << setw(12) << this->houseRating
+         << " | " << setw(19) << this->minOccupantScore
+         << " | " << setw(15) << this->consumingPoint
+         << " | " << setw(12) << this->startDate
+         << " | " << setw(12) << this->endDate
+         << " | " << setw(12) << this->description << "\n";
+}
 
 void House::showAll()
 {
